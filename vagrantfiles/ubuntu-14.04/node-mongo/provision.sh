@@ -39,3 +39,5 @@ source /home/vagrant/.nvm/nvm.sh
 
 nvm install 4.4.5
 nvm alias default 4.4.5
+
+npm install pm2 -g
