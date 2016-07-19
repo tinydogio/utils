@@ -6,6 +6,8 @@ echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" 
 sudo apt-get update
 sudo apt-get upgrade
 
+sudo apt-get install build-essential checkinstall
+
 sudo apt-get install -y mongodb-org
 
 sudo echo "mongodb-org hold" | sudo dpkg --set-selections
