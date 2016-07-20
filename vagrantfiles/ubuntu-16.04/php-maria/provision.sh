@@ -28,7 +28,8 @@ sudo ufw allow 9000
 sudo systemctl enable apache2
 sudo a2enmod rewrite
 
-sudo export DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server
+export DEBIAN_FRONTEND=noninteractive
+sudo apt-get install -y mysql-server
 sudo systemctl enable mysqld
 
 sudo apt-get install -y php libapache2-mod-php php-mcrypt php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc
