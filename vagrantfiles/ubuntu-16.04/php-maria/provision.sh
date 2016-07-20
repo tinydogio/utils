@@ -29,6 +29,10 @@ sudo systemctl enable apache2
 sudo a2enmod rewrite
 
 export DEBIAN_FRONTEND=noninteractive
+MYSQL_PASS=""
+debconf-set-selections <<< "mysql-community-server mysql-community-server/data-dir select ''"
+debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password $MYSQL_PASS"
+debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password $MYSQL_PASS"
 sudo apt-get install -y mysql-server
 sudo systemctl enable mysqld
 
