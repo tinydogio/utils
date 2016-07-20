@@ -3,6 +3,8 @@
 sudo apt-get update
 sudo apt-get upgrade
 
+sudo apt-get --no-install-recommends install -y virtualbox-guest-utils
+
 sudo apt-get install -y build-essential checkinstall git
 
 sudo apt-get install -y apache2
