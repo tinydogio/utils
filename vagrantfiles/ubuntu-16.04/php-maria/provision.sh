@@ -29,11 +29,10 @@ sudo systemctl enable apache2
 sudo a2enmod rewrite
 
 export DEBIAN_FRONTEND=noninteractive
-MYSQL_PASS=""
-debconf-set-selections <<< "mysql-community-server mysql-community-server/data-dir select ''"
-debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password $MYSQL_PASS"
-debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password $MYSQL_PASS"
-sudo apt-get install -y mysql-server
+MYSQL_ROOT_PASSWORD="root"
+sudo debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
+sudo debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"
+sudo apt-get -qq install mysql-server > /dev/null
 sudo systemctl enable mysqld
 
 sudo apt-get install -y php libapache2-mod-php php-mcrypt php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc
