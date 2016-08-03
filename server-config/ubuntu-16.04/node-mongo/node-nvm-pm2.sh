@@ -8,3 +8,5 @@ sudo nvm alias default v4.4.7
 
 sudo npm install pm2@latest -g
 sudo pm2 completion install
+sudo pm2 save
+sudo pm2 startup ubuntu
