@@ -2,4 +2,4 @@
 
 Run the following command:
 
-`curl -o- https://raw.githubusercontent.com/tinydogio/utils/master/server-config/ubuntu-16.04/php-mysql/test.sh | bash`
+`bash -c "$(curl -s https://raw.githubusercontent.com/tinydogio/utils/master/server-config/ubuntu-16.04/php-mysql/test.sh)"`
