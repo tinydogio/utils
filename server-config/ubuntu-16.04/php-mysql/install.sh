@@ -48,7 +48,7 @@ sed 's/#SSLHonorCipherOrder on/SSLHonorCipherOrder on/' -i /etc/apache2/mods-ava
 sed 's/#SSLStrictSNIVHostCheck On/#SSLStrictSNIVHostCheck On\n\n\tSSLOpenSSLConfCmd DHParameters "\/etc\/ssl\/private\/dhparams.pem"\n\tSSLStaplingCache shmcb:${APACHE_RUN_DIR}\/ssl_stapling_cache(128000)/' -i /etc/apache2/mods-available/ssl.conf
 
 mkdir -p /etc/apache2/snippets
-echo -e '# Header always set Content-Security-Policy "default-src https:"\nHeader always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"\nHeader always set X-Frame-Options "SAMEORIGIN"\nHeader always set X-Xss-Protection "1; mode=block"\nHeader always set X-Content-Type-Options "nosniff"' >> /etc/apache2/snippets/securityHeaders2.conf
+echo -e '# Header always set Content-Security-Policy "default-src https:"\nHeader always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"\nHeader always set X-Frame-Options "SAMEORIGIN"\nHeader always set X-Xss-Protection "1; mode=block"\nHeader always set X-Content-Type-Options "nosniff"' >> /etc/apache2/snippets/securityHeaders.conf
 echo -e 'SSLUseStapling on\nSSLStaplingReturnResponderErrors off\nSSLStaplingResponderTimeout 5' >> /etc/apache2/snippets/sslStapling.conf
 
 apt-get install -y memcached php-memcached
