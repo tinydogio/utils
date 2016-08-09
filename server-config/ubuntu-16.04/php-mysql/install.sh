@@ -33,6 +33,9 @@ a2enmod expires
 a2enmod ssl
 sed 's/AllowOverride None/AllowOverride All/g' -i /etc/apache2/apache2.conf
 
+echo "ServerTokens ProductOnly" >> /etc/apache2/apache2.conf
+echo "ServerSignature Off" >> /etc/apache2/apache2.conf
+
 echo "ServerName $(cat /etc/hostname)" | tee /etc/apache2/conf-available/servername.conf
 a2enconf servername
 
@@ -43,6 +46,10 @@ chmod 600 /etc/ssl/private/dhparams.pem
 
 sed 's/#SSLHonorCipherOrder on/SSLHonorCipherOrder on/' -i /etc/apache2/mods-available/ssl.conf
 sed 's/#SSLStrictSNIVHostCheck On/#SSLStrictSNIVHostCheck On\n\n\tSSLOpenSSLConfCmd DHParameters "\/etc\/ssl\/private\/dhparams.pem"\n\tSSLStaplingCache shmcb:${APACHE_RUN_DIR}\/ssl_stapling_cache(128000)/' -i /etc/apache2/mods-available/ssl.conf
+
+mkdir -p /etc/apache2/snippets
+echo -e '# Header always set Content-Security-Policy "default-src https:"\nHeader always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"\nHeader always set X-Frame-Options "SAMEORIGIN"\nHeader always set X-Xss-Protection "1; mode=block"\nHeader always set X-Content-Type-Options "nosniff"' >> /etc/apache2/snippets/securityHeaders2.conf
+echo -e 'SSLUseStapling on\nSSLStaplingReturnResponderErrors off\nSSLStaplingResponderTimeout 5' >> /etc/apache2/snippets/sslStapling.conf
 
 apt-get install -y memcached php-memcached
 systemctl restart memcached
