@@ -13,8 +13,6 @@ sudo apt-get --no-install-recommends install -y virtualbox-guest-utils
 
 sudo apt-get install -y build-essential checkinstall git
 
-sudo apt-get install -y apache2
-
 if ! [ -L /var/www ]; then
   rm -rf /var/www
   ln -fs /vagrant /var/www
