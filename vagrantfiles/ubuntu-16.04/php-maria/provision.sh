@@ -15,7 +15,7 @@ apt-get --no-install-recommends install -y virtualbox-guest-utils
 
 apt-get install -y build-essential checkinstall git
 
-if ! [ -L /var/www ]; then
+if ! [ -L /var/www/html ]; then
   rm -rf /var/www/html
   ln -fs /vagrant /var/www/html
 fi
