@@ -77,18 +77,14 @@ apt-get install -y memcached php-memcached
 systemctl restart memcached
 systemctl enable memcached
 
+echo -e '<VirtualHost *:80>\n  ServerAdmin webmaster@localhost\n  DocumentRoot /var/www\n  DirectoryIndex index.php index.html index.htm\n\n  Include /etc/apache2/snippets/securityHeaders.conf\n\n  ErrorLog ${APACHE_LOG_DIR}/error.log\n  CustomLog ${APACHE_LOG_DIR}/access.log combined\n</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
 systemctl restart apache2.service
 systemctl enable apache2.service
 
 apt-get install -y sendmail
 systemctl start sendmail.service
 systemctl enable sendmail.service
-
-ufw --force enable
-ufw allow 22
-ufw allow 80
-ufw allow 443
-ufw --force enable
 
 apt-get install -y letsencrypt
 crontab -l | { cat; echo "30 2 * * 1 /usr/bin/letsencrypt renew >> /var/log/le-renew.log"; } | crontab -
