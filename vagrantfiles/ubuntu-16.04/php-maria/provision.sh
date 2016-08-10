@@ -26,7 +26,9 @@ debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password password
 debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"
 apt-get -qq install mysql-server > /dev/null
 apt-get install -y mysql-client
+sed 's/bind-address\t\t= 127.0.0.1/bind-address\t\t= 0.0.0.0/' -i /etc/mysql/mysql.conf.d/mysqld.cnf
 systemctl enable mysql
+systemctl restart mysql
 
 apt-get install -y ghostscript libgs-dev imagemagick
 
