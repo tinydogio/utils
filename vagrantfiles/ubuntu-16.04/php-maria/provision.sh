@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+sudo export DEBIAN_FRONTEND=noninteractive
+
 sudo mkdir -p /home/vagrant/.ssh
 sudo wget --no-check-certificate https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub -O /home/vagrant/.ssh/authorized_keys
 sudo chmod 0700 /home/vagrant/.ssh
@@ -30,6 +32,7 @@ sudo ufw allow 4000
 sudo ufw allow 9000
 
 sudo MYSQL_ROOT_PASSWORD="root"
+sudo export DEBIAN_FRONTEND=noninteractive
 sudo debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
 sudo debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"
 sudo apt-get -qq install mysql-server > /dev/null
