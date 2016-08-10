@@ -11,7 +11,7 @@ chown -R vagrant /home/vagrant/.ssh
 apt-get update
 apt-get upgrade
 
-apt-get --no-install-recommends install -y virtualbox-guest-utils
+#apt-get --no-install-recommends install -y virtualbox-guest-utils
 
 apt-get install -y build-essential checkinstall git
 
