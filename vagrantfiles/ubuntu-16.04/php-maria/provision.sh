@@ -16,8 +16,8 @@ apt-get --no-install-recommends install -y virtualbox-guest-utils
 apt-get install -y build-essential checkinstall git
 
 if ! [ -L /var/www ]; then
-  rm -rf /var/www
-  ln -fs /vagrant /var/www
+  rm -rf /var/www/html
+  ln -fs /vagrant /var/www/html
 fi
 
 ufw --force enable
@@ -77,7 +77,7 @@ apt-get install -y memcached php-memcached
 systemctl restart memcached
 systemctl enable memcached
 
-echo -e '<VirtualHost *:80>\n  ServerAdmin webmaster@localhost\n  DocumentRoot /var/www\n  DirectoryIndex index.php index.html index.htm\n\n  Include /etc/apache2/snippets/securityHeaders.conf\n\n  ErrorLog ${APACHE_LOG_DIR}/error.log\n  CustomLog ${APACHE_LOG_DIR}/access.log combined\n</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+echo -e '<VirtualHost *:80>\n  ServerAdmin webmaster@localhost\n  DocumentRoot /var/www/html\n  DirectoryIndex index.php index.html index.htm\n\n  Include /etc/apache2/snippets/securityHeaders.conf\n\n  ErrorLog ${APACHE_LOG_DIR}/error.log\n  CustomLog ${APACHE_LOG_DIR}/access.log combined\n</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
 systemctl restart apache2.service
 systemctl enable apache2.service
