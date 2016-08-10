@@ -23,8 +23,10 @@ systemctl enable mysql
 # TODO: Automate mysql_secure_installation. Look into "expect"
 # mysql_secure_installation
 
+apt-get install -y ghostscript libgs-dev imagemagick
+
 apt-get install -y apache2
-apt-get install -y php libapache2-mod-php php-mcrypt php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc
+apt-get install -y php php-cli libapache2-mod-php php-mcrypt php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip php-json
 
 a2enmod access_compat
 a2enmod rewrite
@@ -32,6 +34,10 @@ a2enmod headers
 a2enmod expires
 a2enmod ssl
 sed 's/AllowOverride None/AllowOverride All/g' -i /etc/apache2/apache2.conf
+sed 's/;date.timezone =/date.timezone = "America\/Detroit"/' -i /etc/php/7.0/apache2/php.ini
+sed 's/memory_limit = 128M/memory_limit = 1G/' -i /etc/php/7.0/apache2/php.ini
+
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
 echo "ServerTokens ProductOnly" >> /etc/apache2/apache2.conf
 echo "ServerSignature Off" >> /etc/apache2/apache2.conf
@@ -78,4 +84,5 @@ cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 # TODO: Implement SSH key for deployment keys.
 # Need a way to automate the password entry for this
 #ssh-keygen -t rsa -b 4096 -C "$SSH_KEY_EMAIL" -P "$SSH_KEY_PASSWORD" -f "/root/.ssh/id_rsa" -q
+#eval "$(ssh-agent -s)"
 #ssh-add /root/.ssh/id_rsa
