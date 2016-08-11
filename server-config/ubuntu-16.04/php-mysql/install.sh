@@ -41,6 +41,7 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 
 echo "ServerTokens ProductOnly" >> /etc/apache2/apache2.conf
 echo "ServerSignature Off" >> /etc/apache2/apache2.conf
+echo "RequestHeader unset Proxy early" >> /etc/apache2/apache2.conf
 
 echo "ServerName $(cat /etc/hostname)" | tee /etc/apache2/conf-available/servername.conf
 a2enconf servername
