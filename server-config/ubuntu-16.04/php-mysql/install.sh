@@ -77,7 +77,7 @@ ufw --force enable
 
 apt-get install -y letsencrypt
 crontab -l | { cat; echo "30 2 * * 1 /usr/bin/letsencrypt renew >> /var/log/le-renew.log"; } | crontab -
-crontab -l | { cat; echo "35 2 * * 1 /bin/systemctl reload nginx"; } | crontab -
+crontab -l | { cat; echo "35 2 * * 1 /bin/systemctl reload apache2"; } | crontab -
 
 apt-get install -y fail2ban
 cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
