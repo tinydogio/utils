@@ -5,16 +5,21 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get upgrade
 
+apt-get remove -y virtualbox-dkms
+apt-get install -y virtualbox-dkms
+modprobe vboxdrv
+modprobe vboxnetflt
+
 apt-get --no-install-recommends install -y virtualbox-guest-utils
 
 apt-get install -y build-essential checkinstall git
 
 ufw --force enable
-ufw allow 22
+#ufw allow 22
 ufw allow 80
-ufw allow 443
-ufw allow 8000
-ufw allow 8080
+#ufw allow 443
+#ufw allow 8000
+#ufw allow 8080
 ufw allow 3306
 ufw allow 3307
 ufw allow 4000
@@ -35,6 +40,10 @@ apt-get install -y ghostscript libgs-dev imagemagick
 apt-get install -y apache2
 apt-get install -y php php-cli libapache2-mod-php php-mcrypt php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip php-json
 
+mkdir /var/log/xdebug
+chown www-data:www-data /var/log/xdebug
+pecl install xdebug
+
 a2enmod access_compat
 a2enmod rewrite
 a2enmod headers
@@ -43,11 +52,14 @@ a2enmod ssl
 sed 's/AllowOverride None/AllowOverride All/g' -i /etc/apache2/apache2.conf
 sed 's/;date.timezone =/date.timezone = "America\/Detroit"/' -i /etc/php/7.0/apache2/php.ini
 sed 's/memory_limit = 128M/memory_limit = 1G/' -i /etc/php/7.0/apache2/php.ini
+sed "s/error_reporting = .*/error_reporting = E_ALL/" -i /etc/php/7.0/apache2/php.ini
+sed "s/display_errors = .*/display_errors = On/" -i /etc/php/7.0/apache2/php.ini
 
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 echo "ServerTokens ProductOnly" >> /etc/apache2/apache2.conf
 echo "ServerSignature Off" >> /etc/apache2/apache2.conf
+echo "RequestHeader unset Proxy early" >> /etc/apache2/apache2.conf
 
 echo "ServerName $(cat /etc/hostname)" | tee /etc/apache2/conf-available/servername.conf
 a2enconf servername
@@ -83,8 +95,9 @@ systemctl start sendmail.service
 systemctl enable sendmail.service
 
 apt-get install -y letsencrypt
+crontab -l | { cat; echo "28 2 * * 1 /bin/systemctl stop apache2"; } | crontab -
 crontab -l | { cat; echo "30 2 * * 1 /usr/bin/letsencrypt renew >> /var/log/le-renew.log"; } | crontab -
-crontab -l | { cat; echo "35 2 * * 1 /bin/systemctl reload nginx"; } | crontab -
+crontab -l | { cat; echo "35 2 * * 1 /bin/systemctl start apache2"; } | crontab -
 
 apt-get install -y fail2ban
 cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
