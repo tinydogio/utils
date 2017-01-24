@@ -35,7 +35,8 @@ sed 's/bind-address\t\t= 127.0.0.1/bind-address\t\t= 0.0.0.0/' -i /etc/mysql/mys
 systemctl enable mysql
 systemctl restart mysql
 
-apt-get install -y ghostscript libgs-dev imagemagick
+apt-get install -y advancecomp gifsicle jhead jpegoptim libjpeg-turbo-progs optipng pngcrush pngquant webp
+apt-get install -y ghostscript libgs-dev imagemagick graphicsmagick
 
 apt-get install -y apache2
 apt-get install -y php php-cli libapache2-mod-php php-mcrypt php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip php-json

@@ -2,6 +2,7 @@
 
 sudo sh ./updates-repos.sh
 sudo sh ./build-essentials.sh
+sudo sh ./graphics.sh
 sudo sh ./mongo.sh
 sudo sh ./letsencrypt.sh
 sudo sh ./fail2ban.sh

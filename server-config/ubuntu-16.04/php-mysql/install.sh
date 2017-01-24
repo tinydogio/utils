@@ -23,7 +23,8 @@ systemctl enable mysql
 # TODO: Automate mysql_secure_installation. Look into "expect"
 # mysql_secure_installation
 
-apt-get install -y ghostscript libgs-dev imagemagick
+apt-get install -y advancecomp gifsicle jhead jpegoptim libjpeg-turbo-progs optipng pngcrush pngquant webp
+apt-get install -y ghostscript libgs-dev imagemagick graphicsmagick
 
 apt-get install -y apache2
 apt-get install -y php php-cli libapache2-mod-php php-mcrypt php-mysql php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip php-json
@@ -88,3 +89,4 @@ cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 #ssh-keygen -t rsa -b 4096 -C "$SSH_KEY_EMAIL" -P "$SSH_KEY_PASSWORD" -f "/root/.ssh/id_rsa" -q
 #eval "$(ssh-agent -s)"
 #ssh-add /root/.ssh/id_rsa
+#Enter passphrase for /root/.ssh/id_rsa: $SSH_KEY_PASSWORD
