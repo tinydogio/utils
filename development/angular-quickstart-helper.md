@@ -13,7 +13,8 @@ This utility should save you enough time to go get yourself a cup of coffee and 
 * Open your terminal and enter the following command:
   * `vim ~/.zshrc`
 * Add the following function:
-  * `# Angular Quickstart Setup & Clean
+```bash
+# Angular Quickstart Setup & Clean
 function ngquickstart() {
   git clone https://github.com/angular/quickstart.git $1
   cd $1
@@ -24,7 +25,7 @@ function ngquickstart() {
   npm install
   npm start
 }
-  `
+```
 * Quick your terminal.
 
 ## Usage
