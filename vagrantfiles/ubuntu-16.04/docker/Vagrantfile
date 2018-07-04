@@ -1,0 +1,12 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# NOTE: This is a foundation to start with, not a complete environment.
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+  end
+  config.vm.provision "shell", path: "https://raw.githubusercontent.com/tinydogio/utils/master/server-config/ubuntu-16.04/docker/install.sh"
+end
