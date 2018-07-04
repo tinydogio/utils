@@ -107,4 +107,4 @@ $RECYCLE.BIN/
 .vagrant/
 
 ### Log Files
-.log
+*.log
